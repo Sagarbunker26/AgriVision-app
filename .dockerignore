@@ -1,0 +1,22 @@
+# Docker specific
+Dockerfile
+.dockerignore
+
+# Git
+.git
+.gitignore
+
+# Node modules
+node_modules
+npm-debug.log
+
+# Build artifacts
+.next/
+dist/
+
+# Env files
+.env
+.env*.local
+
+# Other
+README.md
