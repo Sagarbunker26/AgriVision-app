@@ -48,7 +48,7 @@ Market Data: {{{marketData}}}
 
 Consider the environmental impact of each crop and provide a sustainability score (0-100, higher is better).  Also include a rationale for each recommendation.
 
-Format your response as a JSON object with a 'cropRecommendations' array. Each object in the array should have 'cropName', 'yieldPrediction', 'profitPrediction', 'sustainabilityScore', and 'rationale' fields.`,,
+Format your response as a JSON object with a 'cropRecommendations' array. Each object in the array should have 'cropName', 'yieldPrediction', 'profitPrediction', 'sustainabilityScore', and 'rationale' fields.`,
 });
 
 const recommendCropsWithSustainabilityFlow = ai.defineFlow(
