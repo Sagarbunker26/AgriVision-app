@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Leaf, Sprout, MessageSquare, CloudSun, LineChart, ArrowRight } from 'lucide-react';
 
 export default function DashboardPage() {
+  const rupeeSymbol = '\u20B9';
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -117,15 +119,15 @@ export default function DashboardPage() {
              <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                     <span>Wheat</span>
-                    <span className="font-medium text-primary">&#8377;2,275 / quintal</span>
+                    <span className="font-medium text-primary">{rupeeSymbol}2,275 / quintal</span>
                 </div>
                  <div className="flex justify-between">
                     <span>Rice</span>
-                    <span className="font-medium text-primary">&#8377;2,183 / quintal</span>
+                    <span className="font-medium text-primary">{rupeeSymbol}2,183 / quintal</span>
                 </div>
                  <div className="flex justify-between">
                     <span>Corn</span>
-                    <span className="font-medium text-destructive">&#8377;2,050 / quintal ▼</span>
+                    <span className="font-medium text-destructive">{rupeeSymbol}2,050 / quintal ▼</span>
                 </div>
              </div>
           </CardContent>

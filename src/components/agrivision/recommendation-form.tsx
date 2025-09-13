@@ -34,6 +34,7 @@ type RecommendationFormProps = {
 export function RecommendationForm({ getRecommendations }: RecommendationFormProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CropRecommendationOutput | null>(null);
+  const rupeeSymbol = '\u20B9';
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -178,7 +179,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                         <TableCell className="font-medium">{rec.cropName}</TableCell>
                         <TableCell>{rec.yieldPrediction.toLocaleString()}</TableCell>
                         <TableCell>
-                          &#8377;{rec.profitPrediction.toLocaleString()}
+                          {rupeeSymbol}{rec.profitPrediction.toLocaleString()}
                         </TableCell>
                         <TableCell>
                           {getSustainabilityBadge(rec.sustainabilityScore)}
