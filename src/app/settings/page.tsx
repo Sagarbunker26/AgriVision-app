@@ -6,7 +6,7 @@ export default function SettingsPage() {
           Settings
         </h1>
         <p className="text-muted-foreground">
-          Manage your account and application settings. This page is a placeholder.
+          Manage your account and application settings.
         </p>
       </div>
     </div>
