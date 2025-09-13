@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,13 +9,39 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 
+type UserProfile = {
+  fullName: string;
+  email: string;
+  farmName: string;
+  farmLocation: string;
+};
+
 export default function ProfilePage() {
   const { toast } = useToast();
+  const [profile, setProfile] = useState<UserProfile>({
+    fullName: 'Alex Vause',
+    email: 'alex.vause@example.com',
+    farmName: 'Sunshine Farms',
+    farmLocation: 'Punjab, India',
+  });
 
+  useEffect(() => {
+    const savedProfile = localStorage.getItem('userProfile');
+    if (savedProfile) {
+      setProfile(JSON.parse(savedProfile));
+    }
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setProfile((prevProfile) => ({ ...prevProfile, [id]: value }));
+  };
+  
   const handleSaveChanges = () => {
+    localStorage.setItem('userProfile', JSON.stringify(profile));
     toast({
-      title: 'Coming Soon!',
-      description: 'Save functionality is not yet implemented.',
+      title: 'Profile Saved!',
+      description: 'Your changes have been saved successfully.',
     });
   };
 
@@ -35,11 +62,11 @@ export default function ProfilePage() {
             <CardContent className="pt-6 flex flex-col items-center space-y-4">
                <Avatar className="h-24 w-24">
                 <AvatarImage src="https://picsum.photos/100" data-ai-hint="person" alt="User Avatar" />
-                <AvatarFallback>AV</AvatarFallback>
+                <AvatarFallback>{profile.fullName.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="text-center">
-                <h2 className="text-xl font-semibold">Alex Vause</h2>
-                <p className="text-muted-foreground">alex.vause@example.com</p>
+                <h2 className="text-xl font-semibold">{profile.fullName}</h2>
+                <p className="text-muted-foreground">{profile.email}</p>
               </div>
                <Button variant="outline" className="w-full" onClick={() => toast({ title: 'Coming Soon!', description: 'This feature is not yet implemented.' })}>Change Picture</Button>
             </CardContent>
@@ -54,21 +81,21 @@ export default function ProfilePage() {
             <CardContent className="space-y-6">
                 <div className="grid gap-4 md:grid-cols-2">
                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name</Label>
-                        <Input id="name" defaultValue="Alex Vause" />
+                        <Label htmlFor="fullName">Full Name</Label>
+                        <Input id="fullName" value={profile.fullName} onChange={handleInputChange} />
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" defaultValue="alex.vause@example.com" />
+                        <Input id="email" type="email" value={profile.email} onChange={handleInputChange} />
                     </div>
                 </div>
                  <div className="space-y-2">
-                    <Label htmlFor="farm-name">Farm Name</Label>
-                    <Input id="farm-name" defaultValue="Sunshine Farms" />
+                    <Label htmlFor="farmName">Farm Name</Label>
+                    <Input id="farmName" value={profile.farmName} onChange={handleInputChange} />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="farm-location">Farm Location</Label>
-                    <Input id="farm-location" defaultValue="Punjab, India" />
+                    <Label htmlFor="farmLocation">Farm Location</Label>
+                    <Input id="farmLocation" value={profile.farmLocation} onChange={handleInputChange} />
                 </div>
                  <div className="flex justify-end">
                     <Button onClick={handleSaveChanges}>Save Changes</Button>

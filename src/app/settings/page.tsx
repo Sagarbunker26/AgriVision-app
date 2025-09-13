@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -8,13 +9,34 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 
+type AppSettings = {
+  language: string;
+  theme: string;
+  emailNotifications: boolean;
+  pushNotifications: boolean;
+};
+
 export default function SettingsPage() {
   const { toast } = useToast();
+  const [settings, setSettings] = useState<AppSettings>({
+    language: 'en',
+    theme: 'system',
+    emailNotifications: true,
+    pushNotifications: false,
+  });
+
+  useEffect(() => {
+    const savedSettings = localStorage.getItem('appSettings');
+    if (savedSettings) {
+      setSettings(JSON.parse(savedSettings));
+    }
+  }, []);
 
   const handleSaveChanges = () => {
+    localStorage.setItem('appSettings', JSON.stringify(settings));
     toast({
-      title: 'Coming Soon!',
-      description: 'Save functionality is not yet implemented.',
+      title: 'Settings Saved!',
+      description: 'Your preferences have been updated.',
     });
   };
 
@@ -40,7 +62,10 @@ export default function SettingsPage() {
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <Label htmlFor="language">Language</Label>
-              <Select defaultValue="en">
+              <Select
+                value={settings.language}
+                onValueChange={(value) => setSettings(s => ({ ...s, language: value }))}
+              >
                 <SelectTrigger id="language" className="w-[180px]">
                   <SelectValue placeholder="Select language" />
                 </SelectTrigger>
@@ -53,7 +78,10 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <Label htmlFor="theme">Theme</Label>
-               <Select defaultValue="system">
+               <Select
+                value={settings.theme}
+                onValueChange={(value) => setSettings(s => ({ ...s, theme: value }))}
+               >
                 <SelectTrigger id="theme" className="w-[180px]">
                   <SelectValue placeholder="Select theme" />
                 </SelectTrigger>
@@ -79,14 +107,22 @@ export default function SettingsPage() {
                 <Label htmlFor="email-notifications">Email Notifications</Label>
                 <p className="text-xs text-muted-foreground">Receive updates via email.</p>
               </div>
-              <Switch id="email-notifications" defaultChecked />
+              <Switch
+                id="email-notifications"
+                checked={settings.emailNotifications}
+                onCheckedChange={(checked) => setSettings(s => ({ ...s, emailNotifications: checked }))}
+              />
             </div>
             <div className="flex items-center justify-between">
                <div>
                 <Label htmlFor="push-notifications">Push Notifications</Label>
                 <p className="text-xs text-muted-foreground">Get real-time alerts on your device.</p>
               </div>
-              <Switch id="push-notifications" />
+              <Switch
+                id="push-notifications"
+                checked={settings.pushNotifications}
+                onCheckedChange={(checked) => setSettings(s => ({ ...s, pushNotifications: checked }))}
+              />
             </div>
           </CardContent>
         </Card>
