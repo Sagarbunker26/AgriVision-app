@@ -16,10 +16,9 @@ const RupeeIcon = () => (
     strokeLinejoin="round"
     className="h-4 w-4 inline-block mr-1"
   >
-    <path d="M6 3h12" />
-    <path d="M6 8h12" />
-    <path d="M6 13h12" />
-    <path d="M14.5 8a5.5 5.5 0 0 1 -5.5 5.5h-1a5.5 5.5 0 0 0 0 11" />
+    <path d="M15 8.5a4 4 0 0 1-4 4H5" />
+    <path d="M5 8.5h14" />
+    <path d="M5 15.5h14" />
   </svg>
 );
 
