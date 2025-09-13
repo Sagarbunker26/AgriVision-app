@@ -178,7 +178,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                         <TableCell className="font-medium">{rec.cropName}</TableCell>
                         <TableCell>{rec.yieldPrediction.toLocaleString()}</TableCell>
                         <TableCell>
-                          ₹{rec.profitPrediction.toLocaleString()}
+                          &#8377;{rec.profitPrediction.toLocaleString()}
                         </TableCell>
                         <TableCell>
                           {getSustainabilityBadge(rec.sustainabilityScore)}

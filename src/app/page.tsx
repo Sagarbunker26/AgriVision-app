@@ -117,15 +117,15 @@ export default function DashboardPage() {
              <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                     <span>Wheat</span>
-                    <span className="font-medium text-primary">₹2,275 / quintal</span>
+                    <span className="font-medium text-primary">&#8377;2,275 / quintal</span>
                 </div>
                  <div className="flex justify-between">
                     <span>Rice</span>
-                    <span className="font-medium text-primary">₹2,183 / quintal</span>
+                    <span className="font-medium text-primary">&#8377;2,183 / quintal</span>
                 </div>
                  <div className="flex justify-between">
                     <span>Corn</span>
-                    <span className="font-medium text-destructive">₹2,050 / quintal ▼</span>
+                    <span className="font-medium text-destructive">&#8377;2,050 / quintal ▼</span>
                 </div>
              </div>
           </CardContent>
