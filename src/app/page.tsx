@@ -3,9 +3,26 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { Leaf, Sprout, MessageSquare, CloudSun, LineChart, ArrowRight } from 'lucide-react';
 
-export default function DashboardPage() {
-  const rupeeSymbol = '\u20B9';
+const RupeeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4 inline-block mr-1"
+  >
+    <path d="M6 3h12" />
+    <path d="M6 8h12" />
+    <path d="M18 8a6 6 0 0 1-12 0" />
+    <path d="M12 8v12" />
+  </svg>
+);
 
+
+export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -119,15 +136,15 @@ export default function DashboardPage() {
              <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                     <span>Wheat</span>
-                    <span className="font-medium text-primary">{rupeeSymbol}2,275 / quintal</span>
+                    <span className="font-medium text-primary inline-flex items-center"><RupeeIcon />2,275 / quintal</span>
                 </div>
                  <div className="flex justify-between">
                     <span>Rice</span>
-                    <span className="font-medium text-primary">{rupeeSymbol}2,183 / quintal</span>
+                    <span className="font-medium text-primary inline-flex items-center"><RupeeIcon />2,183 / quintal</span>
                 </div>
                  <div className="flex justify-between">
                     <span>Corn</span>
-                    <span className="font-medium text-destructive">{rupeeSymbol}2,050 / quintal ▼</span>
+                    <span className="font-medium text-destructive inline-flex items-center"><RupeeIcon />2,050 / quintal ▼</span>
                 </div>
              </div>
           </CardContent>
