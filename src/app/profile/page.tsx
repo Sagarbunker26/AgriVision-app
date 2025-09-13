@@ -1,11 +1,23 @@
+'use client';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/hooks/use-toast';
 
 export default function ProfilePage() {
+  const { toast } = useToast();
+
+  const handleSaveChanges = () => {
+    toast({
+      title: 'Coming Soon!',
+      description: 'Save functionality is not yet implemented.',
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -29,7 +41,7 @@ export default function ProfilePage() {
                 <h2 className="text-xl font-semibold">Alex Vause</h2>
                 <p className="text-muted-foreground">alex.vause@example.com</p>
               </div>
-               <Button variant="outline" className="w-full">Change Picture</Button>
+               <Button variant="outline" className="w-full" onClick={() => toast({ title: 'Coming Soon!', description: 'This feature is not yet implemented.' })}>Change Picture</Button>
             </CardContent>
           </Card>
         </div>
@@ -59,7 +71,7 @@ export default function ProfilePage() {
                     <Input id="farm-location" defaultValue="Punjab, India" />
                 </div>
                  <div className="flex justify-end">
-                    <Button>Save Changes</Button>
+                    <Button onClick={handleSaveChanges}>Save Changes</Button>
                 </div>
             </CardContent>
           </Card>

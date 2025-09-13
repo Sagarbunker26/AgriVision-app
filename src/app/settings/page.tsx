@@ -1,11 +1,23 @@
+'use client';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 export default function SettingsPage() {
+  const { toast } = useToast();
+
+  const handleSaveChanges = () => {
+    toast({
+      title: 'Coming Soon!',
+      description: 'Save functionality is not yet implemented.',
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -80,7 +92,7 @@ export default function SettingsPage() {
         </Card>
       </div>
        <div className="flex justify-end">
-          <Button>Save Changes</Button>
+          <Button onClick={handleSaveChanges}>Save Changes</Button>
         </div>
     </div>
   );
