@@ -95,15 +95,19 @@ export function SidebarNav() {
       <SidebarFooter className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: "Help" }}>
-              <LifeBuoy />
-              <span>Help</span>
+            <SidebarMenuButton asChild isActive={isActive("/help")} tooltip={{ children: "Help" }}>
+              <Link href="/help">
+                <LifeBuoy />
+                <span>Help</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={{ children: "Settings" }}>
-              <Settings />
-              <span>Settings</span>
+            <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip={{ children: "Settings" }}>
+              <Link href="/settings">
+                <Settings />
+                <span>Settings</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
