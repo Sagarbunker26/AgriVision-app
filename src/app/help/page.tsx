@@ -6,7 +6,7 @@ export default function HelpPage() {
           Help & Support
         </h1>
         <p className="text-muted-foreground">
-          Find answers to your questions and get support here. This page is a placeholder.
+          Find answers to your questions and get support here.
         </p>
       </div>
     </div>
