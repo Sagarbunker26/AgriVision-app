@@ -197,6 +197,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                         <TableCell className="font-medium">{rec.cropName}</TableCell>
                         <TableCell>{rec.yieldPrediction.toLocaleString()}</TableCell>
                         <TableCell>
+                          <span className="font-sans text-[1.1em] mr-1">₹</span>
                           {rec.profitPrediction.toLocaleString()}
                         </TableCell>
                         <TableCell>
