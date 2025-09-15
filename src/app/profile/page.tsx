@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,21 +14,28 @@ type UserProfile = {
   email: string;
   farmName: string;
   farmLocation: string;
+  avatarUrl: string;
 };
+
+const defaultAvatar = "https://picsum.photos/100";
 
 export default function ProfilePage() {
   const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [profile, setProfile] = useState<UserProfile>({
     fullName: 'Alex Vause',
     email: 'alex.vause@example.com',
     farmName: 'Sunshine Farms',
     farmLocation: 'Punjab, India',
+    avatarUrl: defaultAvatar,
   });
 
   useEffect(() => {
     const savedProfile = localStorage.getItem('userProfile');
     if (savedProfile) {
-      setProfile(JSON.parse(savedProfile));
+      const parsedProfile = JSON.parse(savedProfile);
+      // Ensure avatarUrl has a fallback if it's not in saved data
+      setProfile({ ...parsedProfile, avatarUrl: parsedProfile.avatarUrl || defaultAvatar });
     }
   }, []);
 
@@ -45,8 +52,34 @@ export default function ProfilePage() {
     });
   };
 
+  const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfile((prevProfile) => ({ ...prevProfile, avatarUrl: reader.result as string }));
+        toast({
+            title: 'Picture Updated!',
+            description: 'Click "Save Changes" to persist your new avatar.',
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileUpload = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div className="space-y-6">
+       <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handlePictureChange}
+        className="hidden"
+        accept="image/*"
+      />
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           User Profile
@@ -61,14 +94,14 @@ export default function ProfilePage() {
           <Card>
             <CardContent className="pt-6 flex flex-col items-center space-y-4">
                <Avatar className="h-24 w-24">
-                <AvatarImage src="https://picsum.photos/100" data-ai-hint="person" alt="User Avatar" />
+                <AvatarImage src={profile.avatarUrl} data-ai-hint="person" alt="User Avatar" />
                 <AvatarFallback>{profile.fullName.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="text-center">
                 <h2 className="text-xl font-semibold">{profile.fullName}</h2>
                 <p className="text-muted-foreground">{profile.email}</p>
               </div>
-               <Button variant="outline" className="w-full" onClick={() => toast({ title: 'Coming Soon!', description: 'This feature is not yet implemented.' })}>Change Picture</Button>
+               <Button variant="outline" className="w-full" onClick={triggerFileUpload}>Change Picture</Button>
             </CardContent>
           </Card>
         </div>
