@@ -17,6 +17,26 @@ const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
   return <Minus className="h-4 w-4 text-muted-foreground" />;
 };
 
+const RupeeIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4 inline-block"
+    >
+      <path d="M6 3h12" />
+      <path d="M6 8h12" />
+      <path d="M18 8a6 6 0 0 1-12 0" />
+      <path d="m8 12 8 8" />
+      <path d="M12 21V3" />
+    </svg>
+);
+
+
 export function MarketPriceCard() {
   const { t } = useLanguage();
   const [prices, setPrices] = useState<MarketPriceOutput | null>(null);
@@ -75,7 +95,7 @@ export function MarketPriceCard() {
                     <div key={item.cropName} className="flex justify-between items-center">
                         <span>{item.cropName}</span>
                         <span className="font-medium text-primary inline-flex items-center gap-2">
-                          ₹{item.price.toLocaleString()} / quintal
+                          <RupeeIcon />{item.price.toLocaleString()} / quintal
                           <TrendIcon trend={item.trend} />
                         </span>
                     </div>
