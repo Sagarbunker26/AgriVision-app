@@ -20,6 +20,8 @@ const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
 const RupeeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -32,7 +34,6 @@ const RupeeIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="M6 8h12" />
     <path d="m6 13 8.5 8" />
     <path d="M7 13h6" />
-    <path d="M9 3v10" />
   </svg>
 );
 
@@ -96,7 +97,7 @@ export function MarketPriceCard() {
                         <span>{item.cropName}</span>
                         <span className="font-medium text-primary inline-flex items-center gap-2">
                           <span className="inline-flex items-center gap-1">
-                            <RupeeIcon className="h-3.5 w-3.5" />
+                            <RupeeIcon className="h-4 w-4" />
                             {item.price.toLocaleString()}
                           </span>
                            / quintal
