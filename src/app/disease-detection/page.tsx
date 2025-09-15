@@ -8,13 +8,6 @@ import { useLanguage } from '@/hooks/use-language';
 export default function DiseaseDetectionPage() {
   const { t } = useLanguage();
 
-  async function getDiseasePrediction(
-    input: ImageBasedDiseaseDetectionInput
-  ): Promise<ImageBasedDiseaseDetectionOutput> {
-    'use server';
-    return await imageBasedDiseaseDetection(input);
-  }
-
   return (
     <div className="space-y-6">
        <div>
@@ -25,7 +18,7 @@ export default function DiseaseDetectionPage() {
           {t('disease_detection_page.description')}
         </p>
       </div>
-      <DiseaseDetectionForm getDiseasePrediction={getDiseasePrediction} />
+      <DiseaseDetectionForm getDiseasePrediction={imageBasedDiseaseDetection} />
     </div>
   );
 }

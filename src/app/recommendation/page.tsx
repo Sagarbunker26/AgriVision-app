@@ -8,13 +8,6 @@ import { useLanguage } from '@/hooks/use-language';
 export default function RecommendationPage() {
   const { t } = useLanguage();
 
-  async function getRecommendations(
-    input: CropRecommendationInput
-  ): Promise<CropRecommendationOutput> {
-    'use server';
-    return await recommendCropsWithSustainability(input);
-  }
-
   return (
     <div className="space-y-6">
       <div>
@@ -25,7 +18,7 @@ export default function RecommendationPage() {
           {t('recommendation_page.description')}
         </p>
       </div>
-      <RecommendationForm getRecommendations={getRecommendations} />
+      <RecommendationForm getRecommendations={recommendCropsWithSustainability} />
     </div>
   );
 }

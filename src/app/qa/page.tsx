@@ -1,18 +1,11 @@
 'use client';
 
-import { ragBasedAgriculturalQA, RagBasedAgriculturalQAInput, RagBasedAgriculturalQAOutput } from "@/ai/flows/rag-based-agricultural-qa";
+import { ragBasedAgriculturalQA } from "@/ai/flows/rag-based-agricultural-qa";
 import { QAChat } from "@/components/agrivision/qa-chat";
 import { useLanguage } from "@/hooks/use-language";
 
 export default function QAPage() {
   const { t } = useLanguage();
-
-  async function getAnswer(
-    input: RagBasedAgriculturalQAInput
-  ): Promise<RagBasedAgriculturalQAOutput> {
-    'use server';
-    return await ragBasedAgriculturalQA(input);
-  }
 
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
@@ -24,7 +17,7 @@ export default function QAPage() {
           {t('qa_page.description')}
         </p>
       </div>
-      <QAChat getAnswer={getAnswer} />
+      <QAChat getAnswer={ragBasedAgriculturalQA} />
     </div>
   );
 }
