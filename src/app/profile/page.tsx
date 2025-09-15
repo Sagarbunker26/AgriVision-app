@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef, type ChangeEvent } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,36 +8,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-
-type UserProfile = {
-  fullName: string;
-  email: string;
-  farmName: string;
-  farmLocation: string;
-  avatarUrl: string;
-};
-
-const defaultAvatar = "https://picsum.photos/100";
+import { useProfile } from '@/hooks/use-profile';
 
 export default function ProfilePage() {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [profile, setProfile] = useState<UserProfile>({
-    fullName: 'Alex Vause',
-    email: 'alex.vause@example.com',
-    farmName: 'Sunshine Farms',
-    farmLocation: 'Punjab, India',
-    avatarUrl: defaultAvatar,
-  });
-
-  useEffect(() => {
-    const savedProfile = localStorage.getItem('userProfile');
-    if (savedProfile) {
-      const parsedProfile = JSON.parse(savedProfile);
-      // Ensure avatarUrl has a fallback if it's not in saved data
-      setProfile({ ...parsedProfile, avatarUrl: parsedProfile.avatarUrl || defaultAvatar });
-    }
-  }, []);
+  const { profile, setProfile } = useProfile();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -45,7 +21,7 @@ export default function ProfilePage() {
   };
   
   const handleSaveChanges = () => {
-    localStorage.setItem('userProfile', JSON.stringify(profile));
+    // The useProfile hook handles saving to localStorage automatically
     toast({
       title: 'Profile Saved!',
       description: 'Your changes have been saved successfully.',
@@ -60,7 +36,7 @@ export default function ProfilePage() {
         setProfile((prevProfile) => ({ ...prevProfile, avatarUrl: reader.result as string }));
         toast({
             title: 'Picture Updated!',
-            description: 'Click "Save Changes" to persist your new avatar.',
+            description: 'Your new avatar is now active.',
         });
       };
       reader.readAsDataURL(file);
@@ -70,6 +46,10 @@ export default function ProfilePage() {
   const triggerFileUpload = () => {
     fileInputRef.current?.click();
   };
+
+  if (!profile) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <div className="space-y-6">

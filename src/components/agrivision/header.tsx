@@ -13,9 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
+import { useProfile } from "@/hooks/use-profile";
 
 export function AppHeader() {
   const { toast } = useToast();
+  const { profile } = useProfile();
 
   const handleLogout = () => {
     toast({
@@ -23,6 +25,12 @@ export function AppHeader() {
       description: "Logout functionality is not yet implemented.",
     });
   };
+
+  if (!profile) {
+    return (
+       <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6" />
+    );
+  }
 
   return (
     <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
@@ -34,13 +42,13 @@ export function AppHeader() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-9 w-9 rounded-full">
             <Avatar className="h-9 w-9">
-              <AvatarImage src="https://picsum.photos/100" data-ai-hint="person" alt="User Avatar" />
-              <AvatarFallback>AV</AvatarFallback>
+              <AvatarImage src={profile.avatarUrl} data-ai-hint="person" alt="User Avatar" />
+              <AvatarFallback>{profile.fullName.charAt(0)}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{profile.fullName}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href="/profile">Profile</Link>
