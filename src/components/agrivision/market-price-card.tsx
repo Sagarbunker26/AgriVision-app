@@ -67,9 +67,10 @@ export function MarketPriceCard() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center h-24 text-destructive">
                 <AlertCircle className="h-8 w-8"/>
                 <p>{error}</p>
+                <Button onClick={handleFetchPrices} variant="outline">Try Again</Button>
             </div>
         )}
-        {prices && (
+        {!loading && !error && prices && (
              <div className="space-y-2 text-sm">
                 {prices.marketPrices.map((item) => (
                     <div key={item.cropName} className="flex justify-between items-center">
