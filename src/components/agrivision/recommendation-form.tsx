@@ -20,6 +20,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import type { CropRecommendationInput, CropRecommendationOutput } from '@/ai/flows/crop-recommendation-with-sustainability';
 import { useLanguage } from '@/hooks/use-language';
+import { AlertCircle } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   soilPh: z.number().min(0).max(14),
@@ -34,8 +36,10 @@ type RecommendationFormProps = {
 
 export function RecommendationForm({ getRecommendations }: RecommendationFormProps) {
   const { t } = useLanguage();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CropRecommendationOutput | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,12 +54,18 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     setResult(null);
+    setError(null);
     try {
       const response = await getRecommendations(values);
       setResult(response);
-    } catch (error) {
-      console.error('Failed to get recommendations:', error);
-      // Here you would show an error toast
+    } catch (err) {
+      console.error('Failed to get recommendations:', err);
+      setError('The AI model is currently busy. Please try again in a moment.');
+      toast({
+        title: 'Error',
+        description: 'Failed to get recommendations. The AI model might be temporarily unavailable.',
+        variant: 'destructive',
+      });
     } finally {
       setLoading(false);
     }
@@ -158,7 +168,14 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
               </div>
             )}
-            {!loading && !result && (
+             {error && !loading && (
+                <div className="flex flex-col items-center justify-center space-y-4 text-center h-24 text-destructive py-10">
+                    <AlertCircle className="h-8 w-8"/>
+                    <p>{error}</p>
+                    <Button onClick={form.handleSubmit(onSubmit)} variant="outline">Try Again</Button>
+                </div>
+            )}
+            {!loading && !result && !error && (
               <div className="text-center text-muted-foreground py-10">
                 {t('recommendation_page.results.placeholder')}
               </div>
