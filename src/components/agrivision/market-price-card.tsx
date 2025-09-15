@@ -28,11 +28,9 @@ const RupeeIcon = (props: React.SVGProps<SVGSVGElement>) => (
     strokeLinejoin="round"
     {...props}
   >
-    <path d="M15.5 8.5H18" />
-    <path d="M15.5 13.5H18" />
-    <path d="M6 3L10 13" />
-    <path d="M6 21L10 13" />
+    <path d="M15 8h2.5a2.5 2.5 0 0 0 0-5H10" />
     <path d="M10 13H18" />
+    <path d="M10 3v18" />
   </svg>
 );
 
