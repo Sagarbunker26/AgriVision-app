@@ -1,29 +1,9 @@
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Leaf, Sprout, MessageSquare, LineChart, ArrowRight } from 'lucide-react';
+import { Leaf, Sprout, MessageSquare, ArrowRight } from 'lucide-react';
 import { WeatherCard } from '@/components/agrivision/weather-card';
-
-const RupeeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4 inline-block mr-1"
-  >
-    <path d="M15 8.5a4 4 0 1 0-8 0" />
-    <path d="M6.5 14H18" />
-    <path d="M8 18h10" />
-    <path d="M6 18h.01" />
-  </svg>
-);
-
+import { MarketPriceCard } from '@/components/agrivision/market-price-card';
 
 export default function DashboardPage() {
   return (
@@ -104,34 +84,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         <WeatherCard />
-
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-4">
-              <LineChart className="h-6 w-6 text-muted-foreground" />
-              <CardTitle>Market Price Tracking</CardTitle>
-            </div>
-            <CardDescription>
-              Current market prices for your crops to help you sell at the right time.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-             <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                    <span>Wheat</span>
-                    <span className="font-medium text-primary inline-flex items-center"><RupeeIcon />2,275 / quintal</span>
-                </div>
-                 <div className="flex justify-between">
-                    <span>Rice</span>
-                    <span className="font-medium text-primary inline-flex items-center"><RupeeIcon />2,183 / quintal</span>
-                </div>
-                 <div className="flex justify-between">
-                    <span>Corn</span>
-                    <span className="font-medium text-destructive inline-flex items-center"><RupeeIcon />2,050 / quintal ▼</span>
-                </div>
-             </div>
-          </CardContent>
-        </Card>
+        <MarketPriceCard />
       </div>
     </div>
   );
