@@ -20,6 +20,7 @@ const ImageBasedDiseaseDetectionInputSchema = z.object({
 export type ImageBasedDiseaseDetectionInput = z.infer<typeof ImageBasedDiseaseDetectionInputSchema>;
 
 const ImageBasedDiseaseDetectionOutputSchema = z.object({
+  isPlantLeaf: z.boolean().describe('Whether the image appears to be a plant leaf.'),
   diseaseName: z.string().describe('The predicted disease name, or "healthy" if no disease is detected.'),
   confidence: z.number().describe('The confidence level of the disease prediction (0-1).'),
   treatmentAdvice: z.string().describe('Advice on how to treat the disease, if applicable.'),
@@ -34,10 +35,13 @@ const prompt = ai.definePrompt({
   name: 'imageBasedDiseaseDetectionPrompt',
   input: {schema: ImageBasedDiseaseDetectionInputSchema},
   output: {schema: ImageBasedDiseaseDetectionOutputSchema},
-  prompt: `You are an expert in plant pathology. Analyze the provided image of a crop leaf and predict any potential diseases.
+  prompt: `You are an expert in plant pathology. Analyze the provided image.
 
-  Based on the image, provide the disease name and a confidence level (0-1). If no disease is detected, return \"healthy\" as the disease name.
-  Also provide a treatment advice on how to treat the disease, if applicable.
+  First, determine if the image is a clear picture of a single plant leaf. Set 'isPlantLeaf' to true or false.
+  
+  If it is a plant leaf, predict any potential diseases. Provide the disease name and a confidence level (0-1). If no disease is detected, return \"healthy\" as the disease name. Also provide treatment advice.
+  
+  If it is not a plant leaf, return default values for the other fields.
 
   Image: {{media url=photoDataUri}}
   `,

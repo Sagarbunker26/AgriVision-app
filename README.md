@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AgriVision: AI-Powered Agricultural Advisor
 
 AgriVision is a modern, AI-driven web application designed to assist farmers with critical agricultural decisions. Built with Next.js and powered by Google's Gemini models through Genkit, this application provides a suite of tools to enhance farm productivity and sustainability.
@@ -70,3 +71,6 @@ You will need the following software installed on your machine:
     This will start the Genkit server, and it will automatically restart if you make changes to the AI flow files in `src/ai/flows/`.
 
 You can now start editing the application. The page will auto-update as you make changes to the code.
+=======
+# Agrivision
+>>>>>>> d504ac476e4ec0c256555266fc648ac962b29c12
