@@ -32,30 +32,6 @@ type RecommendationFormProps = {
   getRecommendations: (input: CropRecommendationInput) => Promise<CropRecommendationOutput>;
 };
 
-const RupeeIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-4 w-4 inline-block mr-1"
-    >
-      <path d="M15 8.5a2.5 2.5 0 0 0-5 0V9h5v0z" />
-      <path d="M12 16.5a2.5 2.5 0 0 1-5 0V16h5v.5z" />
-      <path d="M10 9.5a2.5 2.5 0 0 1 5 0V10h-5v-.5z" />
-      <path d="M15 15.5a2.5 2.5 0 0 0-5 0V16h5v-.5z" />
-      <path d="M5 6h14" />
-      <path d="M5 18h14" />
-      <path d="M12 6V5" />
-      <path d="M12 19v-1" />
-    </svg>
-  );
-
 export function RecommendationForm({ getRecommendations }: RecommendationFormProps) {
   const { t } = useLanguage();
   const [loading, setLoading] = useState(false);
@@ -204,7 +180,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                         <TableCell className="font-medium">{rec.cropName}</TableCell>
                         <TableCell>{rec.yieldPrediction.toLocaleString()}</TableCell>
                         <TableCell>
-                          <span className="inline-flex items-center"><RupeeIcon />{rec.profitPrediction.toLocaleString()}</span>
+                          {rec.profitPrediction.toLocaleString()}
                         </TableCell>
                         <TableCell>
                           {getSustainabilityBadge(rec.sustainabilityScore)}
