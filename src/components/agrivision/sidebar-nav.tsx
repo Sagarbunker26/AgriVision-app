@@ -17,6 +17,7 @@ import {
   LifeBuoy,
   Settings,
 } from "lucide-react";
+import { useLanguage } from "@/hooks/use-language";
 
 const Logo = () => (
  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary">
@@ -28,6 +29,7 @@ const Logo = () => (
 
 export function SidebarNav() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const isActive = (path: string) => pathname === path;
 
   return (
@@ -46,11 +48,11 @@ export function SidebarNav() {
             <SidebarMenuButton
               asChild
               isActive={isActive("/")}
-              tooltip={{ children: "Dashboard" }}
+              tooltip={{ children: t('sidebar.dashboard') }}
             >
               <Link href="/">
                 <LayoutDashboard />
-                <span>Dashboard</span>
+                <span>{t('sidebar.dashboard')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -58,11 +60,11 @@ export function SidebarNav() {
             <SidebarMenuButton
               asChild
               isActive={isActive("/recommendation")}
-              tooltip={{ children: "Crop Recommendation" }}
+              tooltip={{ children: t('sidebar.recommendation') }}
             >
               <Link href="/recommendation">
                 <Sprout />
-                <span>Crop Recommendation</span>
+                <span>{t('sidebar.recommendation')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -70,11 +72,11 @@ export function SidebarNav() {
             <SidebarMenuButton
               asChild
               isActive={isActive("/disease-detection")}
-              tooltip={{ children: "Disease Detection" }}
+              tooltip={{ children: t('sidebar.disease_detection') }}
             >
               <Link href="/disease-detection">
                 <Leaf />
-                <span>Disease Detection</span>
+                <span>{t('sidebar.disease_detection')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -82,11 +84,11 @@ export function SidebarNav() {
             <SidebarMenuButton
               asChild
               isActive={isActive("/qa")}
-              tooltip={{ children: "Q&amp;A" }}
+              tooltip={{ children: t('sidebar.qa') }}
             >
               <Link href="/qa">
                 <MessageSquare />
-                <span>Agricultural Q&amp;A</span>
+                <span>{t('sidebar.qa')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -95,18 +97,18 @@ export function SidebarNav() {
       <SidebarFooter className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/help")} tooltip={{ children: "Help" }}>
+            <SidebarMenuButton asChild isActive={isActive("/help")} tooltip={{ children: t('sidebar.help') }}>
               <Link href="/help">
                 <LifeBuoy />
-                <span>Help</span>
+                <span>{t('sidebar.help')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip={{ children: "Settings" }}>
+            <SidebarMenuButton asChild isActive={isActive("/settings")} tooltip={{ children: t('sidebar.settings') }}>
               <Link href="/settings">
                 <Settings />
-                <span>Settings</span>
+                <span>{t('sidebar.settings')}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

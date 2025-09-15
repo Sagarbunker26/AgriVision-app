@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { LineChart, Loader2, AlertCircle, RefreshCw, ArrowUp, ArrowDown, Minus } from 'lucide-react';
 import { getMarketPrices, type MarketPriceOutput } from '@/ai/flows/market-price-tracking';
+import { useLanguage } from '@/hooks/use-language';
 
 const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
   if (trend === 'up') {
@@ -29,16 +30,20 @@ const RupeeIcon = () => (
       strokeLinejoin="round"
       className="h-4 w-4 inline-block"
     >
-      <path d="M6 3h12" />
-      <path d="M6 8h12" />
-      <path d="m6 13 8.5 8" />
-      <path d="M6 13h3" />
-      <path d="M9 13c6.667 0 6.667-10 0-10" />
+      <path d="M15 8.5a2.5 2.5 0 0 0-5 0V9h5v0z" />
+      <path d="M12 16.5a2.5 2.5 0 0 1-5 0V16h5v.5z" />
+      <path d="M10 9.5a2.5 2.5 0 0 1 5 0V10h-5v-.5z" />
+      <path d="M15 15.5a2.5 2.5 0 0 0-5 0V16h5v-.5z" />
+      <path d="M5 6h14" />
+      <path d="M5 18h14" />
+      <path d="M12 6V5" />
+      <path d="M12 19v-1" />
     </svg>
   );
 
 
 export function MarketPriceCard() {
+  const { t } = useLanguage();
   const [prices, setPrices] = useState<MarketPriceOutput | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +56,7 @@ export function MarketPriceCard() {
       setPrices(data);
     } catch (err) {
       console.error('Failed to get market prices:', err);
-      setError('Could not fetch market data. Please try again.');
+      setError(t('market_card.error_fetch'));
     } finally {
       setLoading(false);
     }
@@ -67,14 +72,14 @@ export function MarketPriceCard() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <LineChart className="h-6 w-6 text-muted-foreground" />
-            <CardTitle>Market Price Tracking</CardTitle>
+            <CardTitle>{t('market_card.title')}</CardTitle>
           </div>
           <Button variant="ghost" size="icon" onClick={handleFetchPrices} disabled={loading}>
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
           </Button>
         </div>
         <CardDescription>
-          AI-generated market prices for your crops to help you sell at the right time.
+          {t('market_card.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -1,8 +1,13 @@
+'use client';
+
 import type { ImageBasedDiseaseDetectionInput, ImageBasedDiseaseDetectionOutput } from '@/ai/flows/image-based-disease-detection';
 import { imageBasedDiseaseDetection } from '@/ai/flows/image-based-disease-detection';
 import { DiseaseDetectionForm } from '@/components/agrivision/disease-detection-form';
+import { useLanguage } from '@/hooks/use-language';
 
 export default function DiseaseDetectionPage() {
+  const { t } = useLanguage();
+
   async function getDiseasePrediction(
     input: ImageBasedDiseaseDetectionInput
   ): Promise<ImageBasedDiseaseDetectionOutput> {
@@ -14,10 +19,10 @@ export default function DiseaseDetectionPage() {
     <div className="space-y-6">
        <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Image-Based Disease Detection
+          {t('disease_detection_page.title')}
         </h1>
         <p className="text-muted-foreground">
-          Upload a photo of a crop leaf to get an instant AI-powered health analysis.
+          {t('disease_detection_page.description')}
         </p>
       </div>
       <DiseaseDetectionForm getDiseasePrediction={getDiseasePrediction} />

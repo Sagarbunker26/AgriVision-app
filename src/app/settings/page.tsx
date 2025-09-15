@@ -31,7 +31,6 @@ export default function SettingsPage() {
     setMounted(true);
     const savedSettings = localStorage.getItem('appSettings');
     if (savedSettings) {
-      // only parse notifications, language is handled by its own hook
       const parsedSettings = JSON.parse(savedSettings);
       setSettings({
         emailNotifications: parsedSettings.emailNotifications,
@@ -43,8 +42,8 @@ export default function SettingsPage() {
   const handleSaveChanges = () => {
     localStorage.setItem('appSettings', JSON.stringify(settings));
     toast({
-      title: 'Settings Saved!',
-      description: 'Your preferences have been updated.',
+      title: t('settings_page.toast_saved_title'),
+      description: t('settings_page.toast_saved_description'),
     });
   };
 
@@ -56,51 +55,51 @@ export default function SettingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Settings
+          {t('settings_page.title')}
         </h1>
         <p className="text-muted-foreground">
-          Manage your account and application settings.
+          {t('settings_page.description')}
         </p>
       </div>
       <Separator />
       <div className="grid gap-8 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>{t('settings.preferences.title')}</CardTitle>
+            <CardTitle>{t('settings_page.preferences.title')}</CardTitle>
             <CardDescription>
-             {t('settings.preferences.description')}
+             {t('settings_page.preferences.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
-              <Label htmlFor="language">Language</Label>
+              <Label htmlFor="language">{t('settings_page.preferences.language')}</Label>
               <Select
                 value={language}
                 onValueChange={setLanguage}
               >
                 <SelectTrigger id="language" className="w-[180px]">
-                  <SelectValue placeholder="Select language" />
+                  <SelectValue placeholder={t('settings_page.preferences.select_language')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="hi">Hindi</SelectItem>
-                  <SelectItem value="es" disabled>Spanish (coming soon)</SelectItem>
+                  <SelectItem value="en">{t('languages.en')}</SelectItem>
+                  <SelectItem value="hi">{t('languages.hi')}</SelectItem>
+                  <SelectItem value="es" disabled>{t('languages.es')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="flex items-center justify-between">
-              <Label htmlFor="theme">Theme</Label>
+              <Label htmlFor="theme">{t('settings_page.preferences.theme')}</Label>
                <Select
                 value={theme}
                 onValueChange={setTheme}
                >
                 <SelectTrigger id="theme" className="w-[180px]">
-                  <SelectValue placeholder="Select theme" />
+                  <SelectValue placeholder={t('settings_page.preferences.select_theme')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="system">System</SelectItem>
+                  <SelectItem value="light">{t('themes.light')}</SelectItem>
+                  <SelectItem value="dark">{t('themes.dark')}</SelectItem>
+                  <SelectItem value="system">{t('themes.system')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -108,16 +107,16 @@ export default function SettingsPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Notifications</CardTitle>
+            <CardTitle>{t('settings_page.notifications.title')}</CardTitle>
             <CardDescription>
-              Manage how you receive notifications from AgriVision.
+              {t('settings_page.notifications.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <Label htmlFor="email-notifications">Email Notifications</Label>
-                <p className="text-xs text-muted-foreground">Receive updates via email.</p>
+                <Label htmlFor="email-notifications">{t('settings_page.notifications.email')}</Label>
+                <p className="text-xs text-muted-foreground">{t('settings_page.notifications.email_description')}</p>
               </div>
               <Switch
                 id="email-notifications"
@@ -127,8 +126,8 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between">
                <div>
-                <Label htmlFor="push-notifications">Push Notifications</Label>
-                <p className="text-xs text-muted-foreground">Get real-time alerts on your device.</p>
+                <Label htmlFor="push-notifications">{t('settings_page.notifications.push')}</Label>
+                <p className="text-xs text-muted-foreground">{t('settings_page.notifications.push_description')}</p>
               </div>
               <Switch
                 id="push-notifications"
@@ -140,7 +139,7 @@ export default function SettingsPage() {
         </Card>
       </div>
        <div className="flex justify-end">
-          <Button onClick={handleSaveChanges}>Save Changes</Button>
+          <Button onClick={handleSaveChanges}>{t('settings_page.save_button')}</Button>
         </div>
     </div>
   );

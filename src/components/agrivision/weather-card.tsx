@@ -5,15 +5,17 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { CloudSun, Loader2, AlertCircle } from 'lucide-react';
 import { getWeatherForecast, type WeatherForecastOutput } from '@/ai/flows/weather-forecast';
+import { useLanguage } from '@/hooks/use-language';
 
 export function WeatherCard() {
+  const { t } = useLanguage();
   const [weather, setWeather] = useState<WeatherForecastOutput | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleFetchWeather = () => {
     if (!navigator.geolocation) {
-      setError('Geolocation is not supported by your browser.');
+      setError(t('weather_card.error_geolocation'));
       return;
     }
 
@@ -29,13 +31,13 @@ export function WeatherCard() {
           setWeather(forecast);
         } catch (err) {
           console.error('Failed to get weather forecast:', err);
-          setError('Could not fetch weather data. Please try again.');
+          setError(t('weather_card.error_fetch'));
         } finally {
           setLoading(false);
         }
       },
       () => {
-        setError('Unable to retrieve your location. Please grant location permission and try again.');
+        setError(t('weather_card.error_permission'));
         setLoading(false);
       }
     );
@@ -57,30 +59,30 @@ export function WeatherCard() {
       <CardHeader>
         <div className="flex items-center gap-4">
           <CloudSun className="h-6 w-6 text-muted-foreground" />
-          <CardTitle>Localized Weather Forecast</CardTitle>
+          <CardTitle>{t('weather_card.title')}</CardTitle>
         </div>
         <CardDescription>
-          Real-time weather updates for your farm's location.
+          {t('weather_card.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
         {!weather && !loading && !error && (
             <div className="flex flex-col items-center justify-center space-y-4 text-center h-24">
-                <p className="text-muted-foreground">Click the button to get weather for your current location.</p>
-                <Button onClick={handleFetchWeather}>Get Weather</Button>
+                <p className="text-muted-foreground">{t('weather_card.prompt')}</p>
+                <Button onClick={handleFetchWeather}>{t('weather_card.get_weather')}</Button>
             </div>
         )}
         {loading && (
             <div className="flex items-center justify-center h-24">
                 <Loader2 className="h-8 w-8 text-primary animate-spin" />
-                <p className="ml-4 text-muted-foreground">Fetching weather...</p>
+                <p className="ml-4 text-muted-foreground">{t('weather_card.loading')}</p>
             </div>
         )}
         {error && (
             <div className="flex flex-col items-center justify-center space-y-4 text-center h-24 text-destructive">
                 <AlertCircle className="h-8 w-8"/>
                 <p>{error}</p>
-                <Button onClick={handleFetchWeather} variant="outline">Try Again</Button>
+                <Button onClick={handleFetchWeather} variant="outline">{t('weather_card.try_again')}</Button>
             </div>
         )}
         {weather && (
@@ -90,8 +92,8 @@ export function WeatherCard() {
                     <p className="text-muted-foreground">{weather.conditions}</p>
                 </div>
                 <div className="mt-4 flex justify-between text-sm text-muted-foreground">
-                    <span>Humidity: {weather.humidity}%</span>
-                    <span>Wind: {weather.windSpeed} km/h</span>
+                    <span>{t('weather_card.humidity')}: {weather.humidity}%</span>
+                    <span>{t('weather_card.wind')}: {weather.windSpeed} km/h</span>
                 </div>
             </>
         )}

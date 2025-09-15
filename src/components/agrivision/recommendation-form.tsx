@@ -19,6 +19,7 @@ import { Slider } from '@/components/ui/slider';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import type { CropRecommendationInput, CropRecommendationOutput } from '@/ai/flows/crop-recommendation-with-sustainability';
+import { useLanguage } from '@/hooks/use-language';
 
 const formSchema = z.object({
   soilPh: z.number().min(0).max(14),
@@ -44,15 +45,19 @@ const RupeeIcon = () => (
       strokeLinejoin="round"
       className="h-4 w-4 inline-block mr-1"
     >
-      <path d="M6 3h12" />
-      <path d="M6 8h12" />
-      <path d="m6 13 8.5 8" />
-      <path d="M6 13h3" />
-      <path d="M9 13c6.667 0 6.667-10 0-10" />
+      <path d="M15 8.5a2.5 2.5 0 0 0-5 0V9h5v0z" />
+      <path d="M12 16.5a2.5 2.5 0 0 1-5 0V16h5v.5z" />
+      <path d="M10 9.5a2.5 2.5 0 0 1 5 0V10h-5v-.5z" />
+      <path d="M15 15.5a2.5 2.5 0 0 0-5 0V16h5v-.5z" />
+      <path d="M5 6h14" />
+      <path d="M5 18h14" />
+      <path d="M12 6V5" />
+      <path d="M12 19v-1" />
     </svg>
   );
 
 export function RecommendationForm({ getRecommendations }: RecommendationFormProps) {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CropRecommendationOutput | null>(null);
 
@@ -81,17 +86,17 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
   }
 
   const getSustainabilityBadge = (score: number) => {
-    if (score > 75) return <Badge className="bg-green-600 text-white">High</Badge>;
-    if (score > 40) return <Badge className="bg-yellow-500 text-white">Medium</Badge>;
-    return <Badge variant="destructive">Low</Badge>;
+    if (score > 75) return <Badge className="bg-green-600 text-white">{t('recommendation_page.results.sustainability_high')}</Badge>;
+    if (score > 40) return <Badge className="bg-yellow-500 text-white">{t('recommendation_page.results.sustainability_medium')}</Badge>;
+    return <Badge variant="destructive">{t('recommendation_page.results.sustainability_low')}</Badge>;
   };
 
   return (
     <div className="grid gap-8 lg:grid-cols-3">
       <Card className="lg:col-span-1">
         <CardHeader>
-          <CardTitle>Farm Inputs</CardTitle>
-          <CardDescription>Enter your farm's data.</CardDescription>
+          <CardTitle>{t('recommendation_page.form.title')}</CardTitle>
+          <CardDescription>{t('recommendation_page.form.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -101,7 +106,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 name="soilPh"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Soil pH: {field.value.toFixed(1)}</FormLabel>
+                    <FormLabel>{t('recommendation_page.form.soil_ph')}: {field.value.toFixed(1)}</FormLabel>
                     <FormControl>
                       <Slider
                         min={0}
@@ -120,11 +125,11 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 name="soilNpk"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Soil NPK</FormLabel>
+                    <FormLabel>{t('recommendation_page.form.soil_npk')}</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g., 12-10-12" {...field} />
                     </FormControl>
-                    <FormDescription>Nitrogen-Phosphorus-Potassium values.</FormDescription>
+                    <FormDescription>{t('recommendation_page.form.npk_description')}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -134,7 +139,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 name="weatherConditions"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Weather Conditions</FormLabel>
+                    <FormLabel>{t('recommendation_page.form.weather')}</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g., Sunny, 25°C" {...field} />
                     </FormControl>
@@ -147,7 +152,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 name="marketData"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Market Data</FormLabel>
+                    <FormLabel>{t('recommendation_page.form.market')}</FormLabel>
                     <FormControl>
                       <Input placeholder="e.g., High demand for vegetables" {...field} />
                     </FormControl>
@@ -156,7 +161,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 )}
               />
               <Button type="submit" disabled={loading} className="w-full">
-                {loading ? 'Getting Recommendations...' : 'Get Recommendations'}
+                {loading ? t('recommendation_page.form.loading_button') : t('recommendation_page.form.button')}
               </Button>
             </form>
           </Form>
@@ -166,9 +171,9 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
       <div className="lg:col-span-2">
         <Card>
           <CardHeader>
-            <CardTitle>AI Recommendations</CardTitle>
+            <CardTitle>{t('recommendation_page.results.title')}</CardTitle>
             <CardDescription>
-              Our AI has analyzed your data and suggests the following crops.
+              {t('recommendation_page.results.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -179,7 +184,7 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
             )}
             {!loading && !result && (
               <div className="text-center text-muted-foreground py-10">
-                Your crop recommendations will appear here.
+                {t('recommendation_page.results.placeholder')}
               </div>
             )}
             {result && result.cropRecommendations && (
@@ -187,10 +192,10 @@ export function RecommendationForm({ getRecommendations }: RecommendationFormPro
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Crop</TableHead>
-                      <TableHead>Yield (kg/ha)</TableHead>
-                      <TableHead>Profit (est.)</TableHead>
-                      <TableHead>Sustainability</TableHead>
+                      <TableHead>{t('recommendation_page.results.crop')}</TableHead>
+                      <TableHead>{t('recommendation_page.results.yield')}</TableHead>
+                      <TableHead>{t('recommendation_page.results.profit')}</TableHead>
+                      <TableHead>{t('recommendation_page.results.sustainability')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,10 +14,12 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
 import { useProfile } from "@/hooks/use-profile";
+import { useLanguage } from "@/hooks/use-language";
 
 export function AppHeader() {
   const { toast } = useToast();
   const { profile } = useProfile();
+  const { t } = useLanguage();
 
   const handleLogout = () => {
     toast({
@@ -51,13 +53,13 @@ export function AppHeader() {
           <DropdownMenuLabel>{profile.fullName}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <Link href="/profile">Profile</Link>
+            <Link href="/profile">{t('header.profile')}</Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href="/settings">Settings</Link>
+            <Link href="/settings">{t('header.settings')}</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>{t('header.logout')}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

@@ -9,9 +9,11 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { useProfile } from '@/hooks/use-profile';
+import { useLanguage } from '@/hooks/use-language';
 
 export default function ProfilePage() {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { profile, setProfile } = useProfile();
 
@@ -23,8 +25,8 @@ export default function ProfilePage() {
   const handleSaveChanges = () => {
     // The useProfile hook handles saving to localStorage automatically
     toast({
-      title: 'Profile Saved!',
-      description: 'Your changes have been saved successfully.',
+      title: t('profile_page.toast_saved_title'),
+      description: t('profile_page.toast_saved_description'),
     });
   };
 
@@ -35,8 +37,8 @@ export default function ProfilePage() {
       reader.onloadend = () => {
         setProfile((prevProfile) => ({ ...prevProfile, avatarUrl: reader.result as string }));
         toast({
-            title: 'Picture Updated!',
-            description: 'Your new avatar is now active.',
+            title: t('profile_page.toast_picture_title'),
+            description: t('profile_page.toast_picture_description'),
         });
       };
       reader.readAsDataURL(file);
@@ -62,10 +64,10 @@ export default function ProfilePage() {
       />
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          User Profile
+          {t('profile_page.title')}
         </h1>
         <p className="text-muted-foreground">
-          View and manage your personal and farm details.
+          {t('profile_page.description')}
         </p>
       </div>
       <Separator />
@@ -81,37 +83,37 @@ export default function ProfilePage() {
                 <h2 className="text-xl font-semibold">{profile.fullName}</h2>
                 <p className="text-muted-foreground">{profile.email}</p>
               </div>
-               <Button variant="outline" className="w-full" onClick={triggerFileUpload}>Change Picture</Button>
+               <Button variant="outline" className="w-full" onClick={triggerFileUpload}>{t('profile_page.change_picture')}</Button>
             </CardContent>
           </Card>
         </div>
         <div className="md:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle>Account Details</CardTitle>
-              <CardDescription>Update your personal and farm information.</CardDescription>
+              <CardTitle>{t('profile_page.account_details_title')}</CardTitle>
+              <CardDescription>{t('profile_page.account_details_description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="grid gap-4 md:grid-cols-2">
                      <div className="space-y-2">
-                        <Label htmlFor="fullName">Full Name</Label>
+                        <Label htmlFor="fullName">{t('profile_page.full_name')}</Label>
                         <Input id="fullName" value={profile.fullName} onChange={handleInputChange} />
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email">{t('profile_page.email')}</Label>
                         <Input id="email" type="email" value={profile.email} onChange={handleInputChange} />
                     </div>
                 </div>
                  <div className="space-y-2">
-                    <Label htmlFor="farmName">Farm Name</Label>
+                    <Label htmlFor="farmName">{t('profile_page.farm_name')}</Label>
                     <Input id="farmName" value={profile.farmName} onChange={handleInputChange} />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="farmLocation">Farm Location</Label>
+                    <Label htmlFor="farmLocation">{t('profile_page.farm_location')}</Label>
                     <Input id="farmLocation" value={profile.farmLocation} onChange={handleInputChange} />
                 </div>
                  <div className="flex justify-end">
-                    <Button onClick={handleSaveChanges}>Save Changes</Button>
+                    <Button onClick={handleSaveChanges}>{t('profile_page.save_button')}</Button>
                 </div>
             </CardContent>
           </Card>

@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { SendHorizonal, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { RagBasedAgriculturalQAInput, RagBasedAgriculturalQAOutput } from '@/ai/flows/rag-based-agricultural-qa';
+import { useLanguage } from '@/hooks/use-language';
 
 type Message = {
   role: 'user' | 'assistant';
@@ -19,6 +20,7 @@ type QAChatProps = {
 };
 
 export function QAChat({ getAnswer }: QAChatProps) {
+  const { t } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,7 +50,7 @@ export function QAChat({ getAnswer }: QAChatProps) {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Failed to get answer:', error);
-      const errorMessage: Message = { role: 'assistant', content: "Sorry, I couldn't get an answer. Please try again." };
+      const errorMessage: Message = { role: 'assistant', content: t('qa_page.chat.error') };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
@@ -58,7 +60,7 @@ export function QAChat({ getAnswer }: QAChatProps) {
   return (
     <Card className="flex flex-col flex-1">
         <CardHeader className="border-b">
-            <h2 className="font-semibold">AI Farming Expert</h2>
+            <h2 className="font-semibold">{t('qa_page.chat.title')}</h2>
         </CardHeader>
       <CardContent className="flex-1 p-0">
         <ScrollArea className="h-[calc(100vh-18rem)]" ref={scrollAreaRef}>
@@ -112,7 +114,7 @@ export function QAChat({ getAnswer }: QAChatProps) {
           <Input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Type your question here..."
+            placeholder={t('qa_page.chat.placeholder')}
             className="flex-1"
             disabled={loading}
           />
