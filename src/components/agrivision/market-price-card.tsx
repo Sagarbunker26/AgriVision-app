@@ -17,6 +17,22 @@ const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
   return <Minus className="h-4 w-4 text-muted-foreground" />;
 };
 
+const RupeeIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="1em" 
+        height="1em" 
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="0"
+        {...props}
+    >
+        <path d="M15.772 6.001h-6.115c-2.044 0-3.702 1.658-3.702 3.702s1.658 3.702 3.702 3.702h12.228v-2h-12.228c-.939 0-1.702-.763-1.702-1.702s.763-1.702 1.702-1.702h6.115v-2zm-2.061 8h-4.054c-2.044 0-3.702 1.658-3.702 3.702s1.658 3.702 3.702 3.702h1.61v-2h-1.61c-.939 0-1.702-.763-1.702-1.702s.763-1.702 1.702-1.702h4.054v-2zm-6.044-12c-3.141 0-5.688 2.547-5.688 5.688v12.625h2v-12.625c0-2.035 1.653-3.688 3.688-3.688h8.228v-2h-8.228z"/>
+    </svg>
+);
+
+
 export function MarketPriceCard() {
   const { t } = useLanguage();
   const [prices, setPrices] = useState<MarketPriceOutput | null>(null);
@@ -75,7 +91,11 @@ export function MarketPriceCard() {
                     <div key={item.cropName} className="flex justify-between items-center">
                         <span>{item.cropName}</span>
                         <span className="font-medium text-primary inline-flex items-center gap-2">
-                          ₹{item.price.toLocaleString()} / quintal
+                          <span className="inline-flex items-center gap-1">
+                            <RupeeIcon className="h-3.5 w-3.5" />
+                            {item.price.toLocaleString()}
+                          </span>
+                           / quintal
                           <TrendIcon trend={item.trend} />
                         </span>
                     </div>
