@@ -6,28 +6,6 @@ import { Button } from '@/components/ui/button';
 import { LineChart, Loader2, AlertCircle, RefreshCw, ArrowUp, ArrowDown, Minus } from 'lucide-react';
 import { getMarketPrices, type MarketPriceOutput } from '@/ai/flows/market-price-tracking';
 
-const RupeeIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4 inline-block mr-1"
-  >
-    <path d="M6 3h12" />
-    <path d="M6 8h12" />
-    <path d="M6 13h12" />
-    <path d="M9 13c6.667 0 6.667-10 0-10" />
-    <path d="M12 13v8" />
-  </svg>
-);
-
-
 const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
   if (trend === 'up') {
     return <ArrowUp className="h-4 w-4 text-green-500" />;
@@ -95,7 +73,6 @@ export function MarketPriceCard() {
                     <div key={item.cropName} className="flex justify-between items-center">
                         <span>{item.cropName}</span>
                         <span className="font-medium text-primary inline-flex items-center gap-2">
-                          <RupeeIcon />
                           {item.price.toLocaleString()} / quintal
                           <TrendIcon trend={item.trend} />
                         </span>
