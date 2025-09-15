@@ -21,6 +21,7 @@ export default function SettingsPage() {
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
   const [isTranslating, setIsTranslating] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   const originalTexts = {
     preferencesTitle: 'Preferences',
@@ -36,6 +37,7 @@ export default function SettingsPage() {
   });
 
   useEffect(() => {
+    setMounted(true);
     const savedSettings = localStorage.getItem('appSettings');
     if (savedSettings) {
       setSettings(JSON.parse(savedSettings));
@@ -84,6 +86,10 @@ export default function SettingsPage() {
       description: 'Your preferences have been updated.',
     });
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="space-y-6">
