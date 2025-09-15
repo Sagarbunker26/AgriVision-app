@@ -20,8 +20,8 @@ const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
 const RupeeIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width="1em"
+      height="1em"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -30,14 +30,11 @@ const RupeeIcon = () => (
       strokeLinejoin="round"
       className="h-4 w-4 inline-block"
     >
-      <path d="M15 8.5a2.5 2.5 0 0 0-5 0V9h5v0z" />
-      <path d="M12 16.5a2.5 2.5 0 0 1-5 0V16h5v.5z" />
-      <path d="M10 9.5a2.5 2.5 0 0 1 5 0V10h-5v-.5z" />
-      <path d="M15 15.5a2.5 2.5 0 0 0-5 0V16h5v-.5z" />
-      <path d="M5 6h14" />
-      <path d="M5 18h14" />
-      <path d="M12 6V5" />
-      <path d="M12 19v-1" />
+      <path d="M6 3h12" />
+      <path d="M6 8h12" />
+      <path d="M6 13h12" />
+      <path d="M10 13c4.5 0 6-3.5 6-7" />
+      <path d="M12 21V3" />
     </svg>
   );
 
