@@ -20,9 +20,6 @@ const defaultProfile: UserProfile = {
 
 const PROFILE_KEY = 'userProfile';
 
-// Custom event to notify other components of profile changes
-const PROFILE_CHANGE_EVENT = 'profileChange';
-
 export function useProfile() {
   const [profile, setProfileState] = useState<UserProfile | null>(null);
 
@@ -41,31 +38,14 @@ export function useProfile() {
         console.error("Failed to parse user profile from localStorage", error);
         setProfileState(defaultProfile);
     }
-
-    // Listen for custom event to sync across components
-    const handleProfileChange = () => {
-      const updatedProfile = localStorage.getItem(PROFILE_KEY);
-      if (updatedProfile) {
-        setProfileState(JSON.parse(updatedProfile));
-      }
-    };
-    
-    window.addEventListener(PROFILE_CHANGE_EVENT, handleProfileChange);
-
-    return () => {
-      window.removeEventListener(PROFILE_CHANGE_EVENT, handleProfileChange);
-    };
   }, []);
 
   const setProfile = useCallback((value: UserProfile | ((prev: UserProfile) => UserProfile)) => {
-    setProfileState(currentProfile => {
-        const newProfile = typeof value === 'function' ? value(currentProfile || defaultProfile) : value;
-        localStorage.setItem(PROFILE_KEY, JSON.stringify(newProfile));
-        // Dispatch event to notify other hooks/components
-        window.dispatchEvent(new Event(PROFILE_CHANGE_EVENT));
-        return newProfile;
-    });
-  }, []);
+    const newProfile = typeof value === 'function' ? value(profile || defaultProfile) : value;
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(newProfile));
+    setProfileState(newProfile);
+  }, [profile]);
+
 
   return { profile, setProfile };
 }
