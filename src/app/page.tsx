@@ -1,19 +1,24 @@
+'use client';
+
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Leaf, Sprout, MessageSquare, ArrowRight } from 'lucide-react';
 import { WeatherCard } from '@/components/agrivision/weather-card';
 import { MarketPriceCard } from '@/components/agrivision/market-price-card';
+import { useLanguage } from '@/hooks/use-language';
 
 export default function DashboardPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col gap-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Welcome to AgriVision
+          {t('dashboard.title')}
         </h1>
         <p className="text-muted-foreground">
-          Your AI-powered assistant for modern farming.
+          {t('dashboard.description')}
         </p>
       </div>
 
@@ -24,16 +29,16 @@ export default function DashboardPage() {
               <div className="rounded-full bg-primary/10 p-3">
                 <Sprout className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>Crop Recommendation</CardTitle>
+              <CardTitle>{t('dashboard.recommendation.title')}</CardTitle>
             </div>
             <CardDescription>
-              Get AI-driven suggestions for the best crops to plant based on your farm's data.
+              {t('dashboard.recommendation.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
               <Link href="/recommendation">
-                Find Best Crops <ArrowRight className="ml-2 h-4 w-4" />
+                {t('dashboard.recommendation.button')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>
@@ -45,16 +50,16 @@ export default function DashboardPage() {
               <div className="rounded-full bg-primary/10 p-3">
                 <Leaf className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>Disease Detection</CardTitle>
+              <CardTitle>{t('dashboard.disease_detection.title')}</CardTitle>
             </div>
             <CardDescription>
-              Upload an image of a crop leaf to detect diseases early and get treatment advice.
+              {t('dashboard.disease_detection.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
               <Link href="/disease-detection">
-                Analyze Crop Health <ArrowRight className="ml-2 h-4 w-4" />
+                {t('dashboard.disease_detection.button')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>
@@ -66,16 +71,16 @@ export default function DashboardPage() {
               <div className="rounded-full bg-primary/10 p-3">
                 <MessageSquare className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>Agricultural Q&amp;A</CardTitle>
+              <CardTitle>{t('dashboard.qa.title')}</CardTitle>
             </div>
             <CardDescription>
-              Ask our AI expert any question about farming practices, and get instant answers.
+              {t('dashboard.qa.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-end">
             <Button asChild className="w-full">
               <Link href="/qa">
-                Ask an Expert <ArrowRight className="ml-2 h-4 w-4" />
+                {t('dashboard.qa.button')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </CardContent>

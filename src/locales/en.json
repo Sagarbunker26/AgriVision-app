@@ -1,0 +1,27 @@
+{
+  "dashboard": {
+    "title": "Welcome to AgriVision",
+    "description": "Your AI-powered assistant for modern farming.",
+    "recommendation": {
+      "title": "Crop Recommendation",
+      "description": "Get AI-driven suggestions for the best crops to plant based on your farm's data.",
+      "button": "Find Best Crops"
+    },
+    "disease_detection": {
+      "title": "Disease Detection",
+      "description": "Upload an image of a crop leaf to detect diseases early and get treatment advice.",
+      "button": "Analyze Crop Health"
+    },
+    "qa": {
+      "title": "Agricultural Q&A",
+      "description": "Ask our AI expert any question about farming practices, and get instant answers.",
+      "button": "Ask an Expert"
+    }
+  },
+  "settings": {
+    "preferences": {
+        "title": "Preferences",
+        "description": "Customize the application to your liking."
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { SidebarNav } from '@/components/agrivision/sidebar-nav';
 import { AppHeader } from '@/components/agrivision/header';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/agrivision/theme-provider';
+import { LanguageProvider } from '@/hooks/use-language';
 
 export const metadata: Metadata = {
   title: 'AgriVision',
@@ -32,17 +33,19 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
         >
-          <SidebarProvider>
-            <Sidebar>
-              <SidebarNav />
-            </Sidebar>
-            <SidebarInset>
-              <div className="flex min-h-svh flex-col">
-                <AppHeader />
-                <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
-              </div>
-            </SidebarInset>
-          </SidebarProvider>
+          <LanguageProvider>
+            <SidebarProvider>
+              <Sidebar>
+                <SidebarNav />
+              </Sidebar>
+              <SidebarInset>
+                <div className="flex min-h-svh flex-col">
+                  <AppHeader />
+                  <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
+                </div>
+              </SidebarInset>
+            </SidebarProvider>
+          </LanguageProvider>
           <Toaster />
         </ThemeProvider>
       </body>
