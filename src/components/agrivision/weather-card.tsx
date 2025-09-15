@@ -29,9 +29,13 @@ export function WeatherCard() {
           const { latitude, longitude } = position.coords;
           const forecast = await getWeatherForecast({ latitude, longitude });
           setWeather(forecast);
-        } catch (err) {
+        } catch (err: any) {
           console.error('Failed to get weather forecast:', err);
-          setError(t('weather_card.error_fetch'));
+          if (err.message && err.message.includes('503')) {
+            setError("The weather service is currently busy. Please try again in a moment.");
+          } else {
+            setError(t('weather_card.error_fetch'));
+          }
         } finally {
           setLoading(false);
         }
