@@ -20,10 +20,11 @@ import {
 import { useLanguage } from "@/hooks/use-language";
 
 const Logo = () => (
- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary">
+  // YOU CAN REPLACE THIS SVG WITH YOUR OWN LOGO
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary">
     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
     <path d="M5.5 21C3 19 3 16 5.5 14c2.5-2 5.5-2 8 0 2.5 2 2.5 5 0 7-2.5 2-5.5 2-8 0z"></path>
- </svg>
+  </svg>
 );
 
 
