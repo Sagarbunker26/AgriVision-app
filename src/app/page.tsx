@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Leaf, Sprout, MessageSquare, CloudSun, LineChart, ArrowRight } from 'lucide-react';
+import { Leaf, Sprout, MessageSquare, LineChart, ArrowRight } from 'lucide-react';
+import { WeatherCard } from '@/components/agrivision/weather-card';
 
 const RupeeIcon = () => (
   <svg
@@ -16,11 +17,10 @@ const RupeeIcon = () => (
     strokeLinejoin="round"
     className="h-4 w-4 inline-block mr-1"
   >
-    <path d="M6 3h12" />
-    <path d="M6 8h12" />
-    <path d="M6 13h12" />
-    <path d="M9 13c6.667 0 6.667-10 0-10" />
-    <path d="M12 13v8" />
+    <path d="M15 8.5a4 4 0 1 0-8 0" />
+    <path d="M6.5 14H18" />
+    <path d="M8 18h10" />
+    <path d="M6 18h.01" />
   </svg>
 );
 
@@ -103,27 +103,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-4">
-              <CloudSun className="h-6 w-6 text-muted-foreground" />
-              <CardTitle>Localized Weather Forecast</CardTitle>
-            </div>
-            <CardDescription>
-              Real-time weather updates for your farm's location.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-baseline gap-2">
-              <p className="text-4xl font-bold">24°C</p>
-              <p className="text-muted-foreground">Sunny with light breeze</p>
-            </div>
-            <div className="mt-4 flex justify-between text-sm text-muted-foreground">
-              <span>Humidity: 65%</span>
-              <span>Wind: 10 km/h</span>
-            </div>
-          </CardContent>
-        </Card>
+        <WeatherCard />
 
         <Card>
           <CardHeader>
