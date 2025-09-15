@@ -76,7 +76,7 @@ export function MarketPriceCard() {
                         <span>{item.cropName}</span>
                         <span className="font-medium text-primary inline-flex items-center gap-2">
                           <span className="inline-flex items-center gap-1">
-                            {item.price.toLocaleString()}
+                            ₹{item.price.toLocaleString()}
                           </span>
                            / quintal
                           <TrendIcon trend={item.trend} />
