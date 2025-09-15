@@ -9,6 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { translateText } from '@/ai/flows/translator';
 
 type AppSettings = {
   language: string;
@@ -19,6 +20,14 @@ type AppSettings = {
 export default function SettingsPage() {
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
+  const [isTranslating, setIsTranslating] = useState(false);
+  
+  const originalTexts = {
+    preferencesTitle: 'Preferences',
+    preferencesDescription: 'Customize the application to your liking.',
+  };
+
+  const [translatedTexts, setTranslatedTexts] = useState(originalTexts);
 
   const [settings, setSettings] = useState<AppSettings>({
     language: 'en',
@@ -32,6 +41,41 @@ export default function SettingsPage() {
       setSettings(JSON.parse(savedSettings));
     }
   }, []);
+
+  const handleLanguageChange = async (languageCode: string) => {
+    setSettings(s => ({ ...s, language: languageCode }));
+    if (languageCode === 'en') {
+      setTranslatedTexts(originalTexts);
+      return;
+    }
+
+    setIsTranslating(true);
+    try {
+      const targetLanguage = languageCode === 'hi' ? 'Hindi' : 'English';
+      
+      const [titleResult, descriptionResult] = await Promise.all([
+        translateText({ text: originalTexts.preferencesTitle, targetLanguage }),
+        translateText({ text: originalTexts.preferencesDescription, targetLanguage }),
+      ]);
+      
+      setTranslatedTexts({
+        preferencesTitle: titleResult.translation,
+        preferencesDescription: descriptionResult.translation,
+      });
+
+    } catch (error) {
+      console.error('Translation failed:', error);
+      toast({
+        title: 'Translation Error',
+        description: 'Could not translate the text. Please try again.',
+        variant: 'destructive',
+      });
+      setTranslatedTexts(originalTexts); // Revert on error
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
 
   const handleSaveChanges = () => {
     localStorage.setItem('appSettings', JSON.stringify(settings));
@@ -55,9 +99,9 @@ export default function SettingsPage() {
       <div className="grid gap-8 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Preferences</CardTitle>
+            <CardTitle>{isTranslating ? 'Translating...' : translatedTexts.preferencesTitle}</CardTitle>
             <CardDescription>
-              Customize the application to your liking.
+             {isTranslating ? '...' : translatedTexts.preferencesDescription}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -65,7 +109,8 @@ export default function SettingsPage() {
               <Label htmlFor="language">Language</Label>
               <Select
                 value={settings.language}
-                onValueChange={(value) => setSettings(s => ({ ...s, language: value }))}
+                onValueChange={handleLanguageChange}
+                disabled={isTranslating}
               >
                 <SelectTrigger id="language" className="w-[180px]">
                   <SelectValue placeholder="Select language" />
