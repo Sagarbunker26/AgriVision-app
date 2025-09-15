@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -11,16 +12,16 @@ import { useToast } from '@/hooks/use-toast';
 
 type AppSettings = {
   language: string;
-  theme: string;
   emailNotifications: boolean;
   pushNotifications: boolean;
 };
 
 export default function SettingsPage() {
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
+
   const [settings, setSettings] = useState<AppSettings>({
     language: 'en',
-    theme: 'system',
     emailNotifications: true,
     pushNotifications: false,
   });
@@ -79,8 +80,8 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <Label htmlFor="theme">Theme</Label>
                <Select
-                value={settings.theme}
-                onValueChange={(value) => setSettings(s => ({ ...s, theme: value }))}
+                value={theme}
+                onValueChange={setTheme}
                >
                 <SelectTrigger id="theme" className="w-[180px]">
                   <SelectValue placeholder="Select theme" />
