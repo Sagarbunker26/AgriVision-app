@@ -18,20 +18,26 @@ const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
 };
 
 const RupeeIcon = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="1em" 
-        height="1em" 
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="0"
-        {...props}
-    >
-        <path d="M15.772 6.001h-6.115c-2.044 0-3.702 1.658-3.702 3.702s1.658 3.702 3.702 3.702h12.228v-2h-12.228c-.939 0-1.702-.763-1.702-1.702s.763-1.702 1.702-1.702h6.115v-2zm-2.061 8h-4.054c-2.044 0-3.702 1.658-3.702 3.702s1.658 3.702 3.702 3.702h1.61v-2h-1.61c-.939 0-1.702-.763-1.702-1.702s.763-1.702 1.702-1.702h4.054v-2zm-6.044-12c-3.141 0-5.688 2.547-5.688 5.688v12.625h2v-12.625c0-2.035 1.653-3.688 3.688-3.688h8.228v-2h-8.228z"/>
-    </svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M6 3h12" />
+    <path d="M6 8h12" />
+    <path d="M6 13h12" />
+    <path d="M21 13c-2.2 0-4-1.8-4-4s1.8-4 4-4" />
+    <path d="M3 13c2.2 0 4-1.8 4-4s-1.8-4-4-4" />
+    <path d="M3 13c0 4.4 3.6 8 8 8s8-3.6 8-8" />
+  </svg>
 );
-
 
 export function MarketPriceCard() {
   const { t } = useLanguage();
