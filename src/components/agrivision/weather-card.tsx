@@ -8,7 +8,7 @@ import { getWeatherForecast, type WeatherForecastOutput } from '@/ai/flows/weath
 import { useLanguage } from '@/hooks/use-language';
 
 const CACHE_KEY = 'weatherForecastCache';
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 export function WeatherCard() {
   const { t } = useLanguage();

@@ -18,7 +18,7 @@ const TrendIcon = ({ trend }: { trend: 'up' | 'down' | 'stable' }) => {
 };
 
 const CACHE_KEY = 'marketPricesCache';
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hour
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
 export function MarketPriceCard() {
   const { t } = useLanguage();
