@@ -11,21 +11,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
 import { useProfile } from "@/hooks/use-profile";
 import { useLanguage } from "@/hooks/use-language";
+import { useAuth } from "@/hooks/use-auth";
 
 export function AppHeader() {
-  const { toast } = useToast();
   const { profile } = useProfile();
   const { t } = useLanguage();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    toast({
-      title: "Coming Soon!",
-      description: "Logout functionality is not yet implemented.",
-    });
+    logout();
   };
 
   if (!profile) {
