@@ -15,7 +15,7 @@ const defaultProfile: UserProfile = {
   email: 'alex.vause@example.com',
   farmName: 'Sunshine Farms',
   farmLocation: 'Punjab, India',
-  avatarUrl: 'https://picsum.photos/seed/123/100/100', // Using a seeded picsum URL for a consistent default image
+  avatarUrl: 'https://picsum.photos/seed/profile-avatar/100/100', // Using a seeded picsum URL for a consistent default image
 };
 
 const PROFILE_KEY = 'userProfile';
@@ -51,17 +51,13 @@ export function useProfile() {
 
 
   const setProfile = useCallback((value: UserProfile | ((prev: UserProfile) => UserProfile)) => {
-    setProfileState(prevProfile => {
-        // Ensure prevProfile is not null before updating. If it is, use defaultProfile.
-        const currentProfile = prevProfile || defaultProfile;
-        const newProfile = typeof value === 'function' ? value(currentProfile) : value;
-        try {
-            localStorage.setItem(PROFILE_KEY, JSON.stringify(newProfile));
-        } catch (error) {
-            console.error("Failed to save user profile to localStorage", error);
-        }
-        return newProfile;
-    });
+    try {
+      const newProfile = typeof value === 'function' ? value(getInitialProfile()) : value;
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(newProfile));
+      setProfileState(newProfile);
+    } catch (error) {
+        console.error("Failed to save user profile to localStorage", error);
+    }
   }, []);
 
 
