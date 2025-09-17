@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from "react";
@@ -5,10 +6,51 @@ import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sprout, Leaf, Sun, Droplets } from "lucide-react";
-import Image from "next/image";
+
+const Logo = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 110"
+      className="h-20 w-20"
+    >
+      <path
+        d="M50 10 C10 20, 10 70, 50 100 C90 70, 90 20, 50 10 Z"
+        fill="hsl(var(--primary))"
+        stroke="hsl(var(--primary-foreground))"
+        strokeWidth="4"
+      />
+      <g transform="translate(25, 28) scale(0.5)">
+        <path
+          d="M50,85 C50,85 50,65 30,55 C40,65 45,75 50,85 M50,85 C50,85 50,65 70,55 C60,65 55,75 50,85"
+          stroke="hsl(var(--primary-foreground))"
+          strokeWidth="4"
+          fill="none"
+        />
+        <path
+          d="M50,55 C40,45 30,30 30,15 C45,25 50,40 50,55 M50,55 C60,45 70,30 70,15 C55,25 50,40 50,55"
+          stroke="hsl(var(--primary-foreground))"
+          strokeWidth="4"
+          fill="hsl(var(--primary-foreground))"
+        />
+        <path
+          d="M40,50 C35,40 25,20 25,5 C35,20 40,35 40,50"
+          stroke="hsl(var(--primary-foreground))"
+          strokeWidth="4"
+          fill="hsl(var(--primary-foreground))"
+        />
+        <path
+          d="M60,50 C65,40 75,20 75,5 C65,20 60,35 60,50"
+          stroke="hsl(var(--primary-foreground))"
+          strokeWidth="4"
+          fill="hsl(var(--primary-foreground))"
+        />
+      </g>
+    </svg>
+  );
+  
 
 export default function AuthPage() {
   const { login, register, loginMutation, registerMutation } = useAuth();
@@ -32,47 +74,34 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="flex flex-col lg:flex-row min-h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         {/* Hero Section */}
-        <div className="lg:flex-1 relative overflow-hidden">
-           <Image
-            src="https://picsum.photos/seed/farm-hero/1200/800"
-            alt="Lush green farm field"
-            fill
-            className="object-cover"
-            data-ai-hint="farm field"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-            <div className="text-center text-white px-6">
-              <div className="text-6xl mb-4">🌱</div>
-              <h1 className="text-3xl lg:text-4xl font-bold mb-2">AgriVision</h1>
-              <p className="text-lg lg:text-xl opacity-90 mb-6">Smart Farming Solutions</p>
-              <div className="flex justify-center space-x-6 text-sm">
-                <div className="flex items-center">
-                  <Sprout className="w-5 h-5 mr-2" />
-                  <span>Crop Recommendations</span>
+        <div className="bg-primary text-primary-foreground flex flex-col items-center justify-center p-8">
+            <div className="text-center space-y-4">
+                <div className="flex justify-center">
+                    <Logo />
                 </div>
-                <div className="flex items-center">
-                  <Leaf className="w-5 h-5 mr-2" />
-                  <span>Disease Diagnosis</span>
+              <h1 className="text-4xl font-bold">AgriVision</h1>
+              <p className="text-xl opacity-90">AI-Powered Agricultural Advisor</p>
+              <div className="pt-6 space-y-2 text-sm max-w-sm mx-auto">
+                <div className="flex items-start gap-3">
+                  <Sprout className="w-5 h-5 mt-0.5 shrink-0" />
+                  <span>Get intelligent crop recommendations based on soil, weather, and market data.</span>
                 </div>
-              </div>
-              <div className="flex justify-center space-x-6 text-sm mt-2">
-                <div className="flex items-center">
-                  <Sun className="w-5 h-5 mr-2" />
-                  <span>Weather Insights</span>
+                <div className="flex items-start gap-3">
+                  <Leaf className="w-5 h-5 mt-0.5 shrink-0" />
+                  <span>Upload leaf photos to instantly detect diseases and get treatment advice.</span>
                 </div>
-                <div className="flex items-center">
-                  <Droplets className="w-5 h-5 mr-2" />
-                  <span>AI Chat Support</span>
+                <div className="flex items-start gap-3">
+                    <Sun className="w-5 h-5 mt-0.5 shrink-0" />
+                    <span>Access localized weather forecasts to make timely farming decisions.</span>
                 </div>
               </div>
             </div>
-          </div>
         </div>
 
         {/* Auth Forms */}
-        <div className="lg:flex-1 flex items-center justify-center p-6">
+        <div className="flex items-center justify-center p-6">
           <div className="w-full max-w-md">
             <Tabs defaultValue="login" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
@@ -82,8 +111,9 @@ export default function AuthPage() {
 
               <TabsContent value="login">
                 <Card className="border-0 shadow-none">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Welcome Back</CardTitle>
+                  <CardHeader className="text-center">
+                    <CardTitle className="text-2xl">Welcome Back!</CardTitle>
+                    <CardDescription>Sign in to access your dashboard.</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleLogin} className="space-y-4">
@@ -130,8 +160,9 @@ export default function AuthPage() {
 
               <TabsContent value="register">
                 <Card className="border-0 shadow-none">
-                  <CardHeader>
-                    <CardTitle className="text-xl">Create Account</CardTitle>
+                   <CardHeader className="text-center">
+                    <CardTitle className="text-2xl">Create an Account</CardTitle>
+                     <CardDescription>Join our community of smart farmers.</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleRegister} className="space-y-4">
