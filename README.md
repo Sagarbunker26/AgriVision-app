@@ -30,6 +30,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 You will need the following software installed on your machine:
 -   [Node.js](https://nodejs.org/) (v20 or later recommended)
 -   [npm](https://www.npmjs.com/) (usually comes with Node.js)
+-   [Git](https://git-scm.com/)
 
 ### Local Setup Instructions
 
@@ -71,4 +72,43 @@ You will need the following software installed on your machine:
     ```
     This will start the Genkit server, and it will automatically restart if you make changes to the AI flow files in `src/ai/flows/`.
 
-You can now start editing the application. The page will auto-update as you make changes to the code.
+### Publishing to GitHub
+
+Follow these steps to upload your project to a new GitHub repository.
+
+1.  **Create a New Repository on GitHub**
+    -   Go to [GitHub](https://github.com/) and log in.
+    -   Click the **+** icon in the top-right corner and select **"New repository"**.
+    -   Give your repository a name (e.g., `agrivision-app`).
+    -   You can add an optional description.
+    -   Make sure the repository is set to **Public** or **Private** as you prefer.
+    -   **Do not** initialize the repository with a `README`, `.gitignore`, or license file, as your project already has these.
+    -   Click **"Create repository"**.
+
+2.  **Initialize Git in Your Project**
+    Open a terminal in your project's root directory and run the following command to initialize a new Git repository:
+    ```bash
+    git init -b main
+    ```
+
+3.  **Add and Commit Your Files**
+    Add all the files to the staging area and commit them:
+    ```bash
+    git add .
+    git commit -m "Initial commit"
+    ```
+
+4.  **Connect Your Local Repository to GitHub**
+    On the GitHub repository page, you will see a URL. Copy it. It should look something like this: `https://github.com/your-username/your-repository-name.git`.
+
+    Use the following command in your terminal to link your local project to the remote repository on GitHub. Replace the URL with your own.
+    ```bash
+    git remote add origin https://github.com/your-username/your-repository-name.git
+    ```
+
+5.  **Push Your Code to GitHub**
+    Finally, push your committed files to the repository on GitHub:
+    ```bash
+    git push -u origin main
+    ```
+    Your code is now on GitHub!
