@@ -70,6 +70,60 @@ You will need the following software installed on your machine:
     ```bash
     npm run genkit:watch
     ```
-    This will start the Genkit server, and it will automatically restart if you make changes to the AI flow files in `src/ai/flows/`.
+    This will start the Genkit server, and it will automatically restart if you make any changes to the AI flow files in `src/ai/flows/`.
 
+## Uploading to GitHub
 
+Follow these steps to upload your code to a new GitHub repository.
+
+1.  **Initialize a Git repository**
+    If you haven't already, open a terminal in your project folder and run this command to initialize a local Git repository.
+    ```bash
+    git init -b main
+    ```
+
+2.  **Add all files to staging**
+    This command prepares all your project files to be committed.
+    ```bash
+    git add .
+    ```
+
+3.  **Commit the files**
+    This command saves your files to the local repository.
+    ```bash
+    git commit -m "Initial commit"
+    ```
+
+4.  **Create a new repository on GitHub**
+    -   Go to [GitHub](https://github.com/) and log in.
+    -   Click the **+** icon in the top right and select **New repository**.
+    -   Give your repository a name (e.g., `AgriVision-app`) and a description.
+    -   Choose "Public" or "Private".
+    -   **Important**: Do not initialize the repository with a README, .gitignore, or license file, as your project already has these.
+    -   Click **Create repository**.
+
+5.  **Link your local repository to GitHub**
+    On the next page, GitHub will show you a repository URL. Copy it. It should look something like `https://github.com/YourUsername/YourRepositoryName.git`.
+
+    Run the following command in your terminal, replacing the URL with your own.
+    ```bash
+    git remote add origin https://github.com/YourUsername/YourRepositoryName.git
+    ```
+
+6.  **Push your code to GitHub**
+    This command uploads your committed files to the repository on GitHub.
+    ```bash
+    git push -u origin main
+    ```
+
+### Troubleshooting
+
+**Error: `remote origin already exists.`**
+This means you have already linked a remote repository. If the URL is incorrect, you can update it with the following command:
+```bash
+git remote set-url origin https://github.com/YourUsername/YourRepositoryName.git
+```
+After updating the URL, you can try pushing again.
+
+**Error: `Repository not found.`**
+This usually means there is a typo in the URL you provided in the `git remote` command. Double-check that the username and repository name in the URL are exactly correct. You can see your current remote URL with `git remote -v` and fix it using the `git remote set-url` command mentioned above.
