@@ -11,21 +11,46 @@ type User = {
 };
 
 // This is a mock API call. In a real app, you would fetch from your backend.
-const fakeApiLogin = async (data: any): Promise<User> => {
+// NOTE: This is a MOCK implementation and is NOT SECURE.
+const fakeApiLogin = async (data: {email: string, password: string}): Promise<User> => {
   console.log('Logging in with:', data);
   await new Promise(resolve => setTimeout(resolve, 1000));
-  if (data.email.includes('fail')) {
-    throw new Error('Invalid credentials');
+
+  const storedUsers = localStorage.getItem('agrivision_users');
+  const users = storedUsers ? JSON.parse(storedUsers) : {};
+  
+  const user = users[data.email];
+
+  if (!user || user.password !== data.password) {
+    throw new Error('Invalid email or password.');
   }
-  return { name: 'Test User', email: data.email };
+
+  return { name: user.name, email: user.email };
 };
 
 const fakeApiRegister = async (data: any): Promise<User> => {
     console.log('Registering with:', data);
     await new Promise(resolve => setTimeout(resolve, 1000));
+    
     if (data.email.includes('fail')) {
-      throw new Error('Registration failed');
+      throw new Error('This email is not allowed.');
     }
+
+    const storedUsers = localStorage.getItem('agrivision_users');
+    const users = storedUsers ? JSON.parse(storedUsers) : {};
+
+    if (users[data.email]) {
+        throw new Error('An account with this email already exists.');
+    }
+
+    users[data.email] = {
+        name: data.name,
+        email: data.email,
+        password: data.password, // In a real app, this should be hashed.
+    };
+
+    localStorage.setItem('agrivision_users', JSON.stringify(users));
+
     return { name: data.name, email: data.email };
   };
 
