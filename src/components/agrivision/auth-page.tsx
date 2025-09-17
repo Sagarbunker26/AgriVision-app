@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from 'next/image';
+import { Logo } from "@/components/agrivision/logo";
 
 export default function AuthPage() {
   const { login, register, loginMutation, registerMutation } = useAuth();
@@ -34,7 +35,7 @@ export default function AuthPage() {
     <div className="flex items-center justify-center min-h-screen bg-background">
       <div className="w-full max-w-md p-6 space-y-6">
         <div className="text-center">
-            <Image src="https://picsum.photos/seed/agrivision-logo/100/100" width={100} height={100} alt="AgriVision Logo" className="mx-auto rounded-full" data-ai-hint="logo agriculture" />
+            <Logo className="mx-auto h-24 w-24 text-primary" />
           <h1 className="text-3xl font-bold text-primary mt-4">AgriVision</h1>
           <p className="text-muted-foreground">AI-Powered Agricultural Advisor</p>
         </div>

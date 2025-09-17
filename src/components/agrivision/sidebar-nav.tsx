@@ -18,25 +18,7 @@ import {
   Settings,
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
-
-const Logo = () => (
-  // HOW TO ADD YOUR LOGO:
-  // 1. If you have an SVG file, open it in a text editor and copy the code.
-  // 2. Paste your SVG code here, replacing the placeholder <svg> block below.
-  // 3. Make sure to adjust the `className` to style it. `h-8 w-8` sets the size.
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-8 w-8 text-primary"
-  >
-    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-  </svg>
-);
+import { Logo } from "@/components/agrivision/logo";
 
 
 export function SidebarNav() {
@@ -48,7 +30,7 @@ export function SidebarNav() {
     <>
       <SidebarHeader>
         <div className="flex items-center gap-2">
-          <Logo />
+          <Logo className="h-8 w-8 text-primary" />
           <span className="text-lg font-semibold text-sidebar-foreground">
             AgriVision
           </span>
