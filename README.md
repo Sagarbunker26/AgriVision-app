@@ -13,81 +13,6 @@ AgriVision is a modern, AI-driven web application designed to assist farmers wit
 -   **User Profile Management**: A dedicated page to manage your personal and farm-related information.
 -   **Customizable Settings**: Personalize your experience by switching between light and dark themes and choosing your preferred language (English or Hindi).
 
-## Application Flowchart
-
-This flowchart shows the overall architecture and user flow of the AgriVision application.
-
-```mermaid
-graph TD
-    subgraph User Interface (Next.js Frontend)
-        A[User Visits App] --> B(Dashboard);
-        B --> C[Crop Recommendation Page];
-        B --> J[Disease Detection Page];
-        B --> Q[Agricultural Q&A Page];
-        B --> X(Weather & Market Cards);
-    end
-
-    subgraph AI Backend (Genkit Flows)
-        F[recommendCrops Flow];
-        M[diseaseDetection Flow];
-        T[agriculturalQA Flow];
-        AA[weatherForecast Flow];
-        AD[marketPrice Flow];
-    end
-
-    subgraph AI Models (Google Gemini)
-        G[Gemini Pro];
-        N[Gemini Pro Vision];
-    end
-
-    C -- User Input --> D(Enters Farm Data);
-    D --> E{Call AI};
-    E --> F;
-    F --> G;
-    G -- Recommendations --> F;
-    F --> I[Display Results in Table];
-
-    J -- User Input --> K(Uploads Leaf Image);
-    K --> L{Call AI};
-    L --> M;
-    M --> N;
-    N -- Diagnosis --> M;
-    M --> P[Display Analysis];
-
-    Q -- User Input --> R(Asks Question);
-    R --> S{Call AI};
-    S --> T;
-    T --> G;
-    G -- Answer --> T;
-    T --> W[Display in Chat];
-
-    X -- On Load --> Z(Get Geolocation);
-    Z --> AA;
-    AA --> G;
-    G -- Weather Data --> AA;
-    AA --> AB[Display Weather];
-
-    X -- On Load --> AC{Call AI};
-    AC --> AD;
-    AD --> G;
-    G -- Market Data --> AD;
-    AD --> AE[Display Prices];
-
-    style A fill:#f2f2f2,stroke:#333,stroke-width:2px
-    style B fill:#e6f7ff,stroke:#333,stroke-width:2px
-    style C fill:#e6f7ff,stroke:#333,stroke-width:2px
-    style J fill:#e6f7ff,stroke:#333,stroke-width:2px
-    style Q fill:#e6f7ff,stroke:#333,stroke-width:2px
-    style X fill:#e6f7ff,stroke:#333,stroke-width:2px
-    style F fill:#d4edda,stroke:#333,stroke-width:2px
-    style M fill:#d4edda,stroke:#333,stroke-width:2px
-    style T fill:#d4edda,stroke:#333,stroke-width:2px
-    style AA fill:#d4edda,stroke:#333,stroke-width:2px
-    style AD fill:#d4edda,stroke:#333,stroke-width:2px
-    style G fill:#fff0b3,stroke:#333,stroke-width:2px
-    style N fill:#fff0b3,stroke:#333,stroke-width:2px
-```
-
 ## Tech Stack
 
 -   **Framework**: Next.js (App Router)
@@ -188,18 +113,24 @@ git push -u origin main
 ```
 You may be asked to enter your GitHub username and password (or a personal access token). After this, your code will be on GitHub.
 
-### Troubleshooting
+## Pushing Updates to GitHub
 
-**Error: `remote origin already exists.`**
+Once your repository is set up, follow these steps to save and upload any new changes you make.
 
-This error means you already have a remote repository configured, but it might be pointing to the wrong URL. To fix this, update the URL of the existing remote instead of trying to add a new one.
-
-Run the following command, making sure to use your correct repository URL:
+### 1. Stage Your Changes
+This command prepares all the modified and new files to be saved.
 ```bash
-git remote set-url origin YOUR_REPOSITORY_URL_HERE
+git add .
 ```
-After updating the URL, you can try pushing your code again with `git push -u origin main`.
 
-**Error: `Repository not found.`**
+### 2. Commit Your Changes
+This command saves your changes with a descriptive message. Replace `"Your descriptive message"` with a summary of what you changed (e.g., `"Updated the login page design"`).
+```bash
+git commit -m "Your descriptive message"
+```
 
-This usually means there is a typo in the repository URL you provided. Double-check the URL from your GitHub repository page. You can see your current remote URL by running `git remote -v`. If it's incorrect, use the `git remote set-url` command mentioned above to fix it.
+### 3. Push Your Changes to GitHub
+This command uploads your saved changes to your GitHub repository.
+```bash
+git push origin main
+```
