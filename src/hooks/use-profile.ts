@@ -11,8 +11,8 @@ export type UserProfile = {
 };
 
 const defaultProfile: UserProfile = {
-  fullName: 'Priya Sharma',
-  email: 'priya.sharma@example.com',
+  fullName: 'Rajesh Kumar',
+  email: 'rajesh.kumar@example.com',
   farmName: 'Sunshine Farms',
   farmLocation: 'Punjab, India',
   avatarUrl: 'https://picsum.photos/seed/profile-avatar/100/100', // Using a seeded picsum URL for a consistent default image
