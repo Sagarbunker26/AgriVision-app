@@ -22,7 +22,8 @@ export default function SettingsPage() {
   const [mounted, setMounted] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   
-  const [settings, setSettings] = useState<AppSettings>({
+  // Local state to buffer notification settings
+  const [localSettings, setLocalSettings] = useState<AppSettings>({
     emailNotifications: true,
     pushNotifications: false,
   });
@@ -31,16 +32,22 @@ export default function SettingsPage() {
     setMounted(true);
     const savedSettings = localStorage.getItem('appSettings');
     if (savedSettings) {
-      const parsedSettings = JSON.parse(savedSettings);
-      setSettings({
-        emailNotifications: parsedSettings.emailNotifications,
-        pushNotifications: parsedSettings.pushNotifications,
-      });
+      try {
+        const parsedSettings = JSON.parse(savedSettings);
+        setLocalSettings({
+          emailNotifications: parsedSettings.emailNotifications,
+          pushNotifications: parsedSettings.pushNotifications,
+        });
+      } catch (e) {
+        console.error("Failed to parse settings from localStorage", e);
+      }
     }
   }, []);
 
   const handleSaveChanges = () => {
-    localStorage.setItem('appSettings', JSON.stringify(settings));
+    // Language and Theme are saved by their respective hooks/providers.
+    // We only need to save the notification settings here.
+    localStorage.setItem('appSettings', JSON.stringify(localSettings));
     toast({
       title: t('settings_page.toast_saved_title'),
       description: t('settings_page.toast_saved_description'),
@@ -120,8 +127,8 @@ export default function SettingsPage() {
               </div>
               <Switch
                 id="email-notifications"
-                checked={settings.emailNotifications}
-                onCheckedChange={(checked) => setSettings(s => ({ ...s, emailNotifications: checked }))}
+                checked={localSettings.emailNotifications}
+                onCheckedChange={(checked) => setLocalSettings(s => ({ ...s, emailNotifications: checked }))}
               />
             </div>
             <div className="flex items-center justify-between">
@@ -131,8 +138,8 @@ export default function SettingsPage() {
               </div>
               <Switch
                 id="push-notifications"
-                checked={settings.pushNotifications}
-                onCheckedChange={(checked) => setSettings(s => ({ ...s, pushNotifications: checked }))}
+                checked={localSettings.pushNotifications}
+                onCheckedChange={(checked) => setLocalSettings(s => ({ ...s, pushNotifications: checked }))}
               />
             </div>
           </CardContent>
